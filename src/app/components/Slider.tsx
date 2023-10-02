@@ -21,20 +21,29 @@ const data = [
 ];
 
 const Slider = () => {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev === data.length - 1 ? 0 : prev + 1));
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [])
 
-  
+
+
+
   return (
-    //text container
     <div className="flex flex-col h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] lg:flex-row bg-orange-50">
-      <div className="flex-1 flex items-center justify-center flex-col gap-8 text-orange-400 font-bold">
+      {/*text container*/}
+      <div className="flex-1 flex items-center justify-center flex-col gap-8 p-4 text-orange-400 font-bold">
         <h1 className="text-5xl text-center uppercase p-4 md:p-10 md:text-6xl xl:text-7xl">
-        </h1>
-        <button className="bg-red-500 text-white py-4 px-8">Order Now</button>
+          {data[currentSlide].title}        </h1>
+        <button className="bg-yellow-500 text-white py-4 px-8">Order Now</button>
       </div>
-     { /*image container*/ }
+      { /*image container*/}
       <div className="w-full flex-1 relative">
         <Image
-          src=""
+          src={data[currentSlide].image}
           alt=""
           fill
           className="object-cover"
